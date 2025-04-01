@@ -64,6 +64,11 @@ func (frame *TCPFrame) GetFunction() uint8 {
 	return frame.Function
 }
 
+// GetAddress returns the Modbus function address.
+func (frame *RTUFrame) GetAddress() uint8 {
+	return 1
+}
+
 // GetData returns the TCPFrame Data byte field.
 func (frame *TCPFrame) GetData() []byte {
 	return frame.Data
