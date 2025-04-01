@@ -67,6 +67,11 @@ func (frame *RTUFrame) GetFunction() uint8 {
 	return frame.Function
 }
 
+// GetAddress returns the Modbus function address.
+func (frame *RTUFrame) GetAddress() uint8 {
+	return frame.Address
+}
+
 // GetData returns the RTUFrame Data byte field.
 func (frame *RTUFrame) GetData() []byte {
 	return frame.Data
