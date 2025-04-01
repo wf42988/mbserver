@@ -65,7 +65,7 @@ func (frame *TCPFrame) GetFunction() uint8 {
 }
 
 // GetAddress returns the Modbus function address.
-func (frame *RTUFrame) GetAddress() uint8 {
+func (frame *TCPFrame) GetAddress() uint8 {
 	return 1
 }
 
