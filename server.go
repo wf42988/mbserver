@@ -13,8 +13,8 @@ import (
 type Server struct {
 	// Debug enables more verbose messaging.
 	Debug            bool
-	listeners        []net.Listener
-	ports            []serial.Port
+	Listeners        []net.Listener
+	Ports            []serial.Port
 	portsWG          sync.WaitGroup
 	portsCloseChan   chan struct{}
 	requestChan      chan *Request
@@ -96,14 +96,14 @@ func (s *Server) handler() {
 
 // Close stops listening to TCP/IP ports and closes serial ports.
 func (s *Server) Close() {
-	for _, listen := range s.listeners {
+	for _, listen := range s.Listeners {
 		listen.Close()
 	}
 
 	close(s.portsCloseChan)
 	s.portsWG.Wait()
 
-	for _, port := range s.ports {
+	for _, port := range s.Ports {
 		port.Close()
 	}
 }
