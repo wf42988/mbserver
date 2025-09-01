@@ -54,7 +54,8 @@ func (s *Server) ListenTCP(addressPort string) (err error) {
 		log.Printf("Failed to Listen: %v\n", err)
 		return err
 	}
-	s.Listeners = append(s.Listeners, listen)
+	s.TcpUrl = addressPort
+	s.listeners = append(s.listeners, listen)
 	go s.accept(listen)
 	return err
 }
