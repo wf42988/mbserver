@@ -13,8 +13,8 @@ import (
 type Server struct {
 	// Debug enables more verbose messaging.
 	Debug            bool
-	Listeners        []net.Listener
-	Ports            []serial.Port
+	listeners        []net.Listener
+	ports            []serial.Port
 	portsWG          sync.WaitGroup
 	portsCloseChan   chan struct{}
 	requestChan      chan *Request
@@ -23,6 +23,8 @@ type Server struct {
 	Coils            []byte
 	HoldingRegisters []uint16
 	InputRegisters   []uint16
+	TcpUrl           string
+	RtuSerialConfig  *serial.Config
 }
 
 // Request contains the connection and Modbus frame.
@@ -96,14 +98,14 @@ func (s *Server) handler() {
 
 // Close stops listening to TCP/IP ports and closes serial ports.
 func (s *Server) Close() {
-	for _, listen := range s.Listeners {
+	for _, listen := range s.listeners {
 		listen.Close()
 	}
 
 	close(s.portsCloseChan)
 	s.portsWG.Wait()
 
-	for _, port := range s.Ports {
+	for _, port := range s.ports {
 		port.Close()
 	}
 }
